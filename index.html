@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8">
+        <title>CHUDO</title>
+  <STYLE>
+    BODY {
+        font-weight: 12pt;  font-family: Constantia;
+    }   
+    .kreator {
+        color: ivory;  border: 3px solid #666; 
+        padding: 20px;  margin: 10px;      
+    }
+  </STYLE>
+<SCRIPT>
+function stylo() {
+    var x = document.createElement("STYLE");
+    var t = document.createTextNode("body {font: 20px arial;}");
+    x.appendChild(t);
+    document.head.appendChild(x);
+}
+</SCRIPT>
+
+    </head>
+<BODY>
+
+<div style="background: #7ad; left: 400px; padding: 10px; position: absolute; opacity: 0.7">
+<div class="kreator">
+<?PHP
+    if(isset($_POST['firstname']) && isset($_POST['nombre'])) 
+        {
+class User
+{
+    private $name, $age;
+
+    public function __construct(string $name, int $age)
+    {
+        $this->name = $name;
+        $this->age = $age;
+    }
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+}
+
+class Ubermensch extends User 
+{
+    private $account, $sum;
+
+    public function __construct($name, $age, int $acc)
+    {
+        parent::__construct($name, $age);
+        $this->account=$acc;
+        $this->sum=20;
+    }
+    public function getPaName(): string
+    {
+        parent::getName();
+    }
+    public function getPaAge(): int
+    {
+        parent::getAge();
+    }
+    public function getAcc(): string
+    {
+        return $this->account;
+    }
+    public function getSum(): int
+    {
+        return $this->sum;
+    }
+}
+
+class Article
+{
+    private $title;
+    private $text;
+    private $author;
+
+    public function __construct(string $title, string $text, Ubermensch $author)
+    {
+        $this->title = $title;
+        $this->text = $text;
+        $this->author = $author;
+    }
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+    public function getText(): string
+    {
+        return $this->text;
+    }
+    public function getAuthor(): Ubermensch
+    {
+        return $this->author;
+    }
+}
+
+$author = new Ubermensch(htmlentities($_POST['firstname']), htmlentities($_POST['nombre']), "09670787");
+$author->getSum();
+$article = new Article('Заголовок', 'Текст', $author);
+
+echo 'Имя автора: '.$article->getAuthor()->getName().', '.$article->getAuthor()->getAge().'<br>'.
+'His account is: '.$article->getAuthor()->getAcc().'<br>'.
+"He's got helluva money: ".$article->getAuthor()->getSum().'$ <br>'.
+'Title:'.$article->getTitle().'<br>'.'Text: '.$article->getText();
+}
+
+    else
+    {   
+        echo "Введенные данные некорректны";
+    }   
+?>
+</div>
+
+
+<div class="kreator" align="center">
+<?PHP
+    if(isset($_POST['x1']) && isset($_POST['y1']) && isset($_POST['r1'])) 
+        {
+/*interface CalculateSquare
+{
+    public function calculateSquare(): float;
+}*/
+
+class Circle //implements CalculateSquare
+{
+    const PI = 3.1416;
+
+    private $r;
+
+    public function __construct(float $r)
+    {
+        $this->r = $r;
+    }
+
+    public function calculateSquare(): float
+    {
+        return self::PI * ($this->r ** 2);
+    }
+
+        public function sayYourClass(): string
+        {
+            return 'My class is ' . self::class;
+        }
+}
+
+class Rectangle
+{
+    private $x;
+    private $y;
+
+    public function __construct(float $x, float $y)
+    {
+        $this->x = $x;
+        $this->y = $y;
+    }
+
+    public function calculateSquare(): float
+    {
+        return $this->x * $this->y;
+    }
+
+        public function sayYourClass(): string
+        {
+            return 'My class is ' . self::class;
+        }
+}
+
+class Square //implements CalculateSquare
+{
+    private $x;
+
+    public function __construct(float $x)
+    {
+        $this->x = $x;
+    }
+
+    public function calculateSquare(): float
+    {
+        return $this->x ** 2;
+    }
+
+        public function sayYourClass(): string
+        {
+            return 'My class is ' . self::class;
+        }
+}
+
+$objects = [
+    new Square(htmlentities($_POST['x1'])),
+    new Rectangle(htmlentities($_POST['x1']), htmlentities($_POST['y1'])),
+    new Circle(htmlentities($_POST['r1']))
+];
+
+foreach ($objects as $object) {
+    //if ($object instanceof CalculateSquare) {
+        echo 'Объект реализует интерфейс CalculateSquare. Площадь: ' . $object->calculateSquare();
+        echo '<br>';
+        echo $object->sayYourClass();
+        echo '<br>';
+   // }
+}
+
+}
+    else
+    {   
+        echo "Введенные данные некорректны";
+    } 
+?>
+</div>
+</div>
+
+<FORM method="POST">
+
+<h2>Creator</h2>
+    <p>Введите имя:<br> 
+        <input type="text" name="firstname" required></p>
+    <p>Entre age:<br> 
+        <input type="number" name="nombre" min="14" max="27" required></p>
+
+<h2>Geometria</h2>
+    <p>Entre 'x':<br> 
+        <input type="number" name="x1" min="1" max="10" step="0.5" required></p>
+    <p>Entre 'y':<br> 
+        <input type="number" name="y1" min="1" max="10" step="0.5" required></p>
+    <p>Entre 'r':<br> 
+        <input type="number" name="r1" min="1" max="10" step="0.25" required></p>
+
+    <input type="submit" value="Create the creator" onclick="stylo()">
+</FORM>
+
+</BODY>
+</html>
